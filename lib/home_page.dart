@@ -75,13 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  _launchURL() async {
-    String url = hvm.listAds![0].link;
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      debugPrint('Could not launch $url');
+  Future<void> _launchURL() async {
+    Uri url = Uri.parse(hvm.listAds![0].link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
     }
   }
 }
